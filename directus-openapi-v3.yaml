@@ -1,0 +1,1948 @@
+openapi: 3.0.0
+info:
+  title: Directus API
+  version: 1.0.0
+  description: >-
+    📘 Documentation auto-générée à partir des collections Directus et des
+    endpoints système.
+
+    ⚡ Inclus les endpoints `/items/{collection}`, `/auth/*`, `/users`, `/roles`,
+    `/files`, etc.
+servers:
+  - url: http://localhost:8125
+paths:
+  /auth/login:
+    post:
+      tags:
+        - Authentification
+      summary: Se connecter
+      description: Authentifie un utilisateur avec email/mot de passe et retourne un
+        token JWT.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: admin@example.com
+                password:
+                  type: string
+                  example: ••••••
+              required:
+                - email
+                - password
+      responses:
+        "200":
+          description: Connexion réussie
+        "401":
+          description: Identifiants invalides
+      security: []
+  /auth/logout:
+    post:
+      tags:
+        - Authentification
+      summary: Se déconnecter
+      description: Invalide le token JWT en cours et déconnecte l'utilisateur.
+      responses:
+        "204":
+          description: Déconnexion réussie
+  /auth/refresh:
+    post:
+      tags:
+        - Authentification
+      summary: Rafraîchir le token JWT
+      description: Renvoie un nouveau token JWT en utilisant un refresh token valide.
+      responses:
+        "200":
+          description: Nouveau token généré
+        "401":
+          description: Refresh token invalide ou expiré
+  /items/abonnements:
+    get:
+      tags:
+        - abonnements
+      summary: Lister les abonnements
+      responses:
+        "200":
+          description: Succès
+    post:
+      tags:
+        - abonnements
+      summary: Créer un abonnements
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/abonnements"
+      responses:
+        "201":
+          description: Créé
+  /items/abonnements/{id}:
+    get:
+      tags:
+        - abonnements
+      summary: Obtenir un abonnements par ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+    patch:
+      tags:
+        - abonnements
+      summary: Mettre à jour un abonnements
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mis à jour
+    delete:
+      tags:
+        - abonnements
+      summary: Supprimer un abonnements
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Supprimé
+  /items/actualites:
+    get:
+      tags:
+        - actualites
+      summary: Lister les actualites
+      responses:
+        "200":
+          description: Succès
+    post:
+      tags:
+        - actualites
+      summary: Créer un actualites
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/actualites"
+      responses:
+        "201":
+          description: Créé
+  /items/actualites/{id}:
+    get:
+      tags:
+        - actualites
+      summary: Obtenir un actualites par ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+    patch:
+      tags:
+        - actualites
+      summary: Mettre à jour un actualites
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mis à jour
+    delete:
+      tags:
+        - actualites
+      summary: Supprimer un actualites
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Supprimé
+  /items/articles:
+    get:
+      tags:
+        - articles
+      summary: Lister les articles
+      responses:
+        "200":
+          description: Succès
+    post:
+      tags:
+        - articles
+      summary: Créer un articles
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/articles"
+      responses:
+        "201":
+          description: Créé
+  /items/articles/{id}:
+    get:
+      tags:
+        - articles
+      summary: Obtenir un articles par ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+    patch:
+      tags:
+        - articles
+      summary: Mettre à jour un articles
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mis à jour
+    delete:
+      tags:
+        - articles
+      summary: Supprimer un articles
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Supprimé
+  /items/articles_tags:
+    get:
+      tags:
+        - articles_tags
+      summary: Lister les articles_tags
+      responses:
+        "200":
+          description: Succès
+    post:
+      tags:
+        - articles_tags
+      summary: Créer un articles_tags
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/articles_tags"
+      responses:
+        "201":
+          description: Créé
+  /items/articles_tags/{id}:
+    get:
+      tags:
+        - articles_tags
+      summary: Obtenir un articles_tags par ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+    patch:
+      tags:
+        - articles_tags
+      summary: Mettre à jour un articles_tags
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mis à jour
+    delete:
+      tags:
+        - articles_tags
+      summary: Supprimer un articles_tags
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Supprimé
+  /items/articles_translations:
+    get:
+      tags:
+        - articles_translations
+      summary: Lister les articles_translations
+      responses:
+        "200":
+          description: Succès
+    post:
+      tags:
+        - articles_translations
+      summary: Créer un articles_translations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/articles_translations"
+      responses:
+        "201":
+          description: Créé
+  /items/articles_translations/{id}:
+    get:
+      tags:
+        - articles_translations
+      summary: Obtenir un articles_translations par ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+    patch:
+      tags:
+        - articles_translations
+      summary: Mettre à jour un articles_translations
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mis à jour
+    delete:
+      tags:
+        - articles_translations
+      summary: Supprimer un articles_translations
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Supprimé
+  /items/categories:
+    get:
+      tags:
+        - categories
+      summary: Lister les categories
+      responses:
+        "200":
+          description: Succès
+    post:
+      tags:
+        - categories
+      summary: Créer un categories
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/categories"
+      responses:
+        "201":
+          description: Créé
+  /items/categories/{id}:
+    get:
+      tags:
+        - categories
+      summary: Obtenir un categories par ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+    patch:
+      tags:
+        - categories
+      summary: Mettre à jour un categories
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mis à jour
+    delete:
+      tags:
+        - categories
+      summary: Supprimer un categories
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Supprimé
+  /items/commentaires:
+    get:
+      tags:
+        - commentaires
+      summary: Lister les commentaires
+      responses:
+        "200":
+          description: Succès
+    post:
+      tags:
+        - commentaires
+      summary: Créer un commentaires
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/commentaires"
+      responses:
+        "201":
+          description: Créé
+  /items/commentaires/{id}:
+    get:
+      tags:
+        - commentaires
+      summary: Obtenir un commentaires par ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+    patch:
+      tags:
+        - commentaires
+      summary: Mettre à jour un commentaires
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mis à jour
+    delete:
+      tags:
+        - commentaires
+      summary: Supprimer un commentaires
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Supprimé
+  /items/languages:
+    get:
+      tags:
+        - languages
+      summary: Lister les languages
+      responses:
+        "200":
+          description: Succès
+    post:
+      tags:
+        - languages
+      summary: Créer un languages
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/languages"
+      responses:
+        "201":
+          description: Créé
+  /items/languages/{id}:
+    get:
+      tags:
+        - languages
+      summary: Obtenir un languages par ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+    patch:
+      tags:
+        - languages
+      summary: Mettre à jour un languages
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mis à jour
+    delete:
+      tags:
+        - languages
+      summary: Supprimer un languages
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Supprimé
+  /items/log_actions:
+    get:
+      tags:
+        - log_actions
+      summary: Lister les log_actions
+      responses:
+        "200":
+          description: Succès
+    post:
+      tags:
+        - log_actions
+      summary: Créer un log_actions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/log_actions"
+      responses:
+        "201":
+          description: Créé
+  /items/log_actions/{id}:
+    get:
+      tags:
+        - log_actions
+      summary: Obtenir un log_actions par ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+    patch:
+      tags:
+        - log_actions
+      summary: Mettre à jour un log_actions
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mis à jour
+    delete:
+      tags:
+        - log_actions
+      summary: Supprimer un log_actions
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Supprimé
+  /items/log_publications:
+    get:
+      tags:
+        - log_publications
+      summary: Lister les log_publications
+      responses:
+        "200":
+          description: Succès
+    post:
+      tags:
+        - log_publications
+      summary: Créer un log_publications
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/log_publications"
+      responses:
+        "201":
+          description: Créé
+  /items/log_publications/{id}:
+    get:
+      tags:
+        - log_publications
+      summary: Obtenir un log_publications par ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+    patch:
+      tags:
+        - log_publications
+      summary: Mettre à jour un log_publications
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mis à jour
+    delete:
+      tags:
+        - log_publications
+      summary: Supprimer un log_publications
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Supprimé
+  /items/logs_formatting:
+    get:
+      tags:
+        - logs_formatting
+      summary: Lister les logs_formatting
+      responses:
+        "200":
+          description: Succès
+    post:
+      tags:
+        - logs_formatting
+      summary: Créer un logs_formatting
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/logs_formatting"
+      responses:
+        "201":
+          description: Créé
+  /items/logs_formatting/{id}:
+    get:
+      tags:
+        - logs_formatting
+      summary: Obtenir un logs_formatting par ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+    patch:
+      tags:
+        - logs_formatting
+      summary: Mettre à jour un logs_formatting
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mis à jour
+    delete:
+      tags:
+        - logs_formatting
+      summary: Supprimer un logs_formatting
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Supprimé
+  /items/medias:
+    get:
+      tags:
+        - medias
+      summary: Lister les medias
+      responses:
+        "200":
+          description: Succès
+    post:
+      tags:
+        - medias
+      summary: Créer un medias
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/medias"
+      responses:
+        "201":
+          description: Créé
+  /items/medias/{id}:
+    get:
+      tags:
+        - medias
+      summary: Obtenir un medias par ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+    patch:
+      tags:
+        - medias
+      summary: Mettre à jour un medias
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mis à jour
+    delete:
+      tags:
+        - medias
+      summary: Supprimer un medias
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Supprimé
+  /items/newsletters:
+    get:
+      tags:
+        - newsletters
+      summary: Lister les newsletters
+      responses:
+        "200":
+          description: Succès
+    post:
+      tags:
+        - newsletters
+      summary: Créer un newsletters
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/newsletters"
+      responses:
+        "201":
+          description: Créé
+  /items/newsletters/{id}:
+    get:
+      tags:
+        - newsletters
+      summary: Obtenir un newsletters par ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+    patch:
+      tags:
+        - newsletters
+      summary: Mettre à jour un newsletters
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mis à jour
+    delete:
+      tags:
+        - newsletters
+      summary: Supprimer un newsletters
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Supprimé
+  /items/newsletters_abonnements:
+    get:
+      tags:
+        - newsletters_abonnements
+      summary: Lister les newsletters_abonnements
+      responses:
+        "200":
+          description: Succès
+    post:
+      tags:
+        - newsletters_abonnements
+      summary: Créer un newsletters_abonnements
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/newsletters_abonnements"
+      responses:
+        "201":
+          description: Créé
+  /items/newsletters_abonnements/{id}:
+    get:
+      tags:
+        - newsletters_abonnements
+      summary: Obtenir un newsletters_abonnements par ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+    patch:
+      tags:
+        - newsletters_abonnements
+      summary: Mettre à jour un newsletters_abonnements
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mis à jour
+    delete:
+      tags:
+        - newsletters_abonnements
+      summary: Supprimer un newsletters_abonnements
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Supprimé
+  /items/pages:
+    get:
+      tags:
+        - pages
+      summary: Lister les pages
+      responses:
+        "200":
+          description: Succès
+    post:
+      tags:
+        - pages
+      summary: Créer un pages
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/pages"
+      responses:
+        "201":
+          description: Créé
+  /items/pages/{id}:
+    get:
+      tags:
+        - pages
+      summary: Obtenir un pages par ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+    patch:
+      tags:
+        - pages
+      summary: Mettre à jour un pages
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mis à jour
+    delete:
+      tags:
+        - pages
+      summary: Supprimer un pages
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Supprimé
+  /items/segments:
+    get:
+      tags:
+        - segments
+      summary: Lister les segments
+      responses:
+        "200":
+          description: Succès
+    post:
+      tags:
+        - segments
+      summary: Créer un segments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/segments"
+      responses:
+        "201":
+          description: Créé
+  /items/segments/{id}:
+    get:
+      tags:
+        - segments
+      summary: Obtenir un segments par ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+    patch:
+      tags:
+        - segments
+      summary: Mettre à jour un segments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mis à jour
+    delete:
+      tags:
+        - segments
+      summary: Supprimer un segments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Supprimé
+  /items/tags:
+    get:
+      tags:
+        - tags
+      summary: Lister les tags
+      responses:
+        "200":
+          description: Succès
+    post:
+      tags:
+        - tags
+      summary: Créer un tags
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/tags"
+      responses:
+        "201":
+          description: Créé
+  /items/tags/{id}:
+    get:
+      tags:
+        - tags
+      summary: Obtenir un tags par ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+    patch:
+      tags:
+        - tags
+      summary: Mettre à jour un tags
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mis à jour
+    delete:
+      tags:
+        - tags
+      summary: Supprimer un tags
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Supprimé
+  /items/tags_actualites_1:
+    get:
+      tags:
+        - tags_actualites_1
+      summary: Lister les tags_actualites_1
+      responses:
+        "200":
+          description: Succès
+    post:
+      tags:
+        - tags_actualites_1
+      summary: Créer un tags_actualites_1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/tags_actualites_1"
+      responses:
+        "201":
+          description: Créé
+  /items/tags_actualites_1/{id}:
+    get:
+      tags:
+        - tags_actualites_1
+      summary: Obtenir un tags_actualites_1 par ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+    patch:
+      tags:
+        - tags_actualites_1
+      summary: Mettre à jour un tags_actualites_1
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mis à jour
+    delete:
+      tags:
+        - tags_actualites_1
+      summary: Supprimer un tags_actualites_1
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Supprimé
+  /items/tags_articles_1:
+    get:
+      tags:
+        - tags_articles_1
+      summary: Lister les tags_articles_1
+      responses:
+        "200":
+          description: Succès
+    post:
+      tags:
+        - tags_articles_1
+      summary: Créer un tags_articles_1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/tags_articles_1"
+      responses:
+        "201":
+          description: Créé
+  /items/tags_articles_1/{id}:
+    get:
+      tags:
+        - tags_articles_1
+      summary: Obtenir un tags_articles_1 par ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+    patch:
+      tags:
+        - tags_articles_1
+      summary: Mettre à jour un tags_articles_1
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mis à jour
+    delete:
+      tags:
+        - tags_articles_1
+      summary: Supprimer un tags_articles_1
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Supprimé
+  /items/utilisateurs:
+    get:
+      tags:
+        - utilisateurs
+      summary: Lister les utilisateurs
+      responses:
+        "200":
+          description: Succès
+    post:
+      tags:
+        - utilisateurs
+      summary: Créer un utilisateurs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/utilisateurs"
+      responses:
+        "201":
+          description: Créé
+  /items/utilisateurs/{id}:
+    get:
+      tags:
+        - utilisateurs
+      summary: Obtenir un utilisateurs par ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+    patch:
+      tags:
+        - utilisateurs
+      summary: Mettre à jour un utilisateurs
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mis à jour
+    delete:
+      tags:
+        - utilisateurs
+      summary: Supprimer un utilisateurs
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Supprimé
+  /users:
+    get:
+      tags:
+        - users
+      summary: GET /users
+      description: Récupère les données de users.
+      parameters: []
+      responses:
+        "200":
+          description: Succès
+        "401":
+          description: Non autorisé
+  /users/{id}:
+    get:
+      tags:
+        - users
+      summary: GET /users/{id}
+      description: Récupère les données de users.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+        "401":
+          description: Non autorisé
+  /roles:
+    get:
+      tags:
+        - roles
+      summary: GET /roles
+      description: Récupère les données de roles.
+      parameters: []
+      responses:
+        "200":
+          description: Succès
+        "401":
+          description: Non autorisé
+  /roles/{id}:
+    get:
+      tags:
+        - roles
+      summary: GET /roles/{id}
+      description: Récupère les données de roles.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+        "401":
+          description: Non autorisé
+  /files:
+    get:
+      tags:
+        - files
+      summary: GET /files
+      description: Récupère les données de files.
+      parameters: []
+      responses:
+        "200":
+          description: Succès
+        "401":
+          description: Non autorisé
+  /files/{id}:
+    get:
+      tags:
+        - files
+      summary: GET /files/{id}
+      description: Récupère les données de files.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+        "401":
+          description: Non autorisé
+  /activity:
+    get:
+      tags:
+        - activity
+      summary: GET /activity
+      description: Récupère les données de activity.
+      parameters: []
+      responses:
+        "200":
+          description: Succès
+        "401":
+          description: Non autorisé
+  /activity/{id}:
+    get:
+      tags:
+        - activity
+      summary: GET /activity/{id}
+      description: Récupère les données de activity.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+        "401":
+          description: Non autorisé
+  /settings:
+    get:
+      tags:
+        - settings
+      summary: GET /settings
+      description: Récupère les données de settings.
+      parameters: []
+      responses:
+        "200":
+          description: Succès
+        "401":
+          description: Non autorisé
+  /flows:
+    get:
+      tags:
+        - flows
+      summary: GET /flows
+      description: Récupère les données de flows.
+      parameters: []
+      responses:
+        "200":
+          description: Succès
+        "401":
+          description: Non autorisé
+  /flows/{id}:
+    get:
+      tags:
+        - flows
+      summary: GET /flows/{id}
+      description: Récupère les données de flows.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succès
+        "401":
+          description: Non autorisé
+tags:
+  - name: Authentification
+    description: Connexion, déconnexion et refresh token
+  - name: abonnements
+    description: Endpoints CRUD pour la collection **abonnements**
+  - name: actualites
+    description: Endpoints CRUD pour la collection **actualites**
+  - name: articles
+    description: Endpoints CRUD pour la collection **articles**
+  - name: articles_tags
+    description: Endpoints CRUD pour la collection **articles_tags**
+  - name: articles_translations
+    description: Endpoints CRUD pour la collection **articles_translations**
+  - name: categories
+    description: Endpoints CRUD pour la collection **categories**
+  - name: commentaires
+    description: Endpoints CRUD pour la collection **commentaires**
+  - name: languages
+    description: Endpoints CRUD pour la collection **languages**
+  - name: log_actions
+    description: Endpoints CRUD pour la collection **log_actions**
+  - name: log_publications
+    description: Endpoints CRUD pour la collection **log_publications**
+  - name: logs_formatting
+    description: Endpoints CRUD pour la collection **logs_formatting**
+  - name: medias
+    description: Endpoints CRUD pour la collection **medias**
+  - name: newsletters
+    description: Endpoints CRUD pour la collection **newsletters**
+  - name: newsletters_abonnements
+    description: Endpoints CRUD pour la collection **newsletters_abonnements**
+  - name: pages
+    description: Endpoints CRUD pour la collection **pages**
+  - name: segments
+    description: Endpoints CRUD pour la collection **segments**
+  - name: tags
+    description: Endpoints CRUD pour la collection **tags**
+  - name: tags_actualites_1
+    description: Endpoints CRUD pour la collection **tags_actualites_1**
+  - name: tags_articles_1
+    description: Endpoints CRUD pour la collection **tags_articles_1**
+  - name: utilisateurs
+    description: Endpoints CRUD pour la collection **utilisateurs**
+  - name: users
+    description: Gestion des utilisateurs Directus
+  - name: roles
+    description: Gestion des rôles et permissions
+  - name: files
+    description: Gestion des fichiers uploadés
+  - name: activity
+    description: Logs et activités Directus
+  - name: settings
+    description: Configuration globale Directus
+  - name: flows
+    description: Gestion des flows (automatisations Directus)
+components:
+  schemas:
+    abonnements:
+      type: object
+      description: Schéma de la collection **abonnements**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        user:
+          type: integer
+        actif:
+          type: boolean
+        date_desactivation:
+          type: string
+          format: date-time
+      required:
+        - user
+    actualites:
+      type: object
+      description: Schéma de la collection **actualites**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        titre:
+          type: string
+        contenu:
+          type: string
+        image:
+          type: string
+        etat:
+          type: string
+        auteur:
+          type: integer
+        slug:
+          type: string
+        mise_en_avant:
+          type: boolean
+      required:
+        - titre
+        - contenu
+        - auteur
+        - slug
+    articles:
+      type: object
+      description: Schéma de la collection **articles**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        titre:
+          type: string
+        slug:
+          type: string
+        etat:
+          type: string
+        date_publication:
+          type: string
+          format: date-time
+        categorie:
+          type: integer
+        contenu:
+          type: string
+        image_couverture:
+          type: integer
+        auteur:
+          type: integer
+        page_associee:
+          type: integer
+        translations:
+          type: string
+        tags:
+          type: string
+      required:
+        - titre
+        - slug
+        - contenu
+    articles_tags:
+      type: object
+      description: Schéma de la collection **articles_tags**
+      properties:
+        id:
+          type: integer
+        articles_id:
+          type: integer
+        tags_id:
+          type: integer
+    articles_translations:
+      type: object
+      description: Schéma de la collection **articles_translations**
+      properties:
+        id:
+          type: integer
+        articles_id:
+          type: integer
+        languages_code:
+          type: string
+        titre:
+          type: string
+        slug:
+          type: string
+        contenu:
+          type: string
+    categories:
+      type: object
+      description: Schéma de la collection **categories**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        nom:
+          type: string
+        slug:
+          type: string
+        ordre:
+          type: integer
+        icone:
+          type: integer
+        active:
+          type: boolean
+      required:
+        - nom
+    commentaires:
+      type: object
+      description: Schéma de la collection **commentaires**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        article:
+          type: integer
+        contenu:
+          type: string
+        statut:
+          type: string
+        utilisateur:
+          type: integer
+        motif_rejet:
+          type: string
+      required:
+        - contenu
+        - utilisateur
+    languages:
+      type: object
+      description: Schéma de la collection **languages**
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        direction:
+          type: string
+    log_actions:
+      type: object
+      description: Schéma de la collection **log_actions**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        utilisateur:
+          type: integer
+        action:
+          type: string
+        cible:
+          type: string
+        element_id:
+          type: string
+      required:
+        - utilisateur
+    log_publications:
+      type: object
+      description: Schéma de la collection **log_publications**
+      properties:
+        id:
+          type: integer
+        status:
+          type: string
+        user_created:
+          type: string
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        type_action:
+          type: string
+        article:
+          type: integer
+        acteur:
+          type: integer
+      required:
+        - type_action
+        - article
+    logs_formatting:
+      type: object
+      description: Schéma de la collection **logs_formatting**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        champ:
+          type: string
+        ancienne_valeur:
+          type: string
+        valeur_normalisee:
+          type: string
+    medias:
+      type: object
+      description: Schéma de la collection **medias**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        titre:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+        fichier_image:
+          type: string
+        fichier_video:
+          type: string
+        fichier_audio:
+          type: string
+        fichier_pdf:
+          type: string
+        fichier_autre:
+          type: string
+      required:
+        - titre
+        - type
+    newsletters:
+      type: object
+      description: Schéma de la collection **newsletters**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        titre:
+          type: string
+        contenu:
+          type: string
+        envoyee:
+          type: boolean
+        slug:
+          type: string
+        auteur:
+          type: integer
+        statut:
+          type: string
+        date_envoi:
+          type: string
+          format: date-time
+        abonnes:
+          type: string
+      required:
+        - titre
+        - contenu
+        - statut
+    newsletters_abonnements:
+      type: object
+      description: Schéma de la collection **newsletters_abonnements**
+      properties:
+        id:
+          type: integer
+        newsletters_id:
+          type: integer
+        abonnements_id:
+          type: integer
+    pages:
+      type: object
+      description: Schéma de la collection **pages**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        titre:
+          type: string
+        slug:
+          type: string
+        contenu:
+          type: string
+        etat:
+          type: string
+        ordre:
+          type: integer
+        banniere:
+          type: integer
+      required:
+        - etat
+    segments:
+      type: object
+      description: Schéma de la collection **segments**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+    tags:
+      type: object
+      description: Schéma de la collection **tags**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        nom:
+          type: string
+        slug:
+          type: string
+        type_tag:
+          type: string
+        articles:
+          type: string
+        actualites:
+          type: string
+      required:
+        - nom
+    tags_actualites_1:
+      type: object
+      description: Schéma de la collection **tags_actualites_1**
+      properties:
+        id:
+          type: integer
+        tags_id:
+          type: integer
+        actualites_id:
+          type: integer
+    tags_articles_1:
+      type: object
+      description: Schéma de la collection **tags_articles_1**
+      properties:
+        id:
+          type: integer
+        tags_id:
+          type: integer
+        articles_id:
+          type: integer
+    utilisateurs:
+      type: object
+      description: Schéma de la collection **utilisateurs**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        prenom:
+          type: string
+        nom:
+          type: string
+        bio:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+        user_id:
+          type: string
+        photo:
+          type: integer
+        note_interne:
+          type: string
+        validation_admin:
+          type: boolean
+        statut_contribution:
+          type: string
+        niveau_confiance:
+          type: string
+        tags_expertise:
+          type: object
+        linkedin_url:
+          type: string
+        twitter_handle:
+          type: string
+      required:
+        - prenom
+        - nom
+        - email
+        - role
+        - photo
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: "⚠️ Ajoutez `Authorization: Bearer <token>` pour accéder aux
+        endpoints protégés."
+security:
+  - bearerAuth: []

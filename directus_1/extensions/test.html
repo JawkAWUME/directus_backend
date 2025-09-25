@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Test Articles by Category</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+        }
+        
+        canvas {
+            max-width: 600px;
+            max-height: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Test Articles by Category</h2>
+    <canvas id="chartCanvas"></canvas>
+
+    <script>
+        async function fetchData() {
+            try {
+                const res = await fetch("http://localhost:8125/articles-by-category"); // ton endpoint API
+                const data = await res.json();
+                console.log("Data fetched:", data);
+
+                const labels = data.map(item => item.category);
+                const counts = data.map(item => item.count);
+
+                const ctx = document.getElementById("chartCanvas").getContext("2d");
+
+                new Chart(ctx, {
+                    type: 'bar', // ou 'pie', 'doughnut'
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: "Articles",
+                            data: counts,
+                            backgroundColor: ["#3b82f6", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: true
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            } catch (err) {
+                console.error("Error fetching API:", err);
+            }
+        }
+
+        fetchData();
+    </script>
+</body>
+
+</html>

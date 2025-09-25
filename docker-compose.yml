@@ -1,0 +1,122 @@
+networks:
+  directus_net:
+
+volumes:
+  mysql1_data:
+  mysql2_data: 
+
+services:
+  # Bases de données
+  mysql1:
+    image: mysql:8
+    container_name: mysql1
+    environment:
+      MYSQL_DATABASE: directus1
+      MYSQL_USER: directus
+      MYSQL_PASSWORD: directus
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3309:3306"
+    volumes:
+      - mysql1_data:/var/lib/mysql
+    networks:
+      - directus_net
+
+  mysql2:
+    image: mysql:8
+    container_name: mysql2
+    environment:
+      MYSQL_DATABASE: directus2
+      MYSQL_USER: directus
+      MYSQL_PASSWORD: directus
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3310:3306"
+    volumes:
+      - mysql2_data:/var/lib/mysql
+    networks:
+      - directus_net
+
+  # Directus instances
+  directus1:
+    image: directus/directus:latest
+    container_name: directus1
+    depends_on:
+      - mysql1
+    environment:
+      SECRET: "hvzozfncz_r_secret1"
+      DB_CLIENT: 'mysql'
+      DB_HOST: mysql1
+      DB_PORT: 3306
+      DB_DATABASE: 'directus1'
+      DB_USER: 'directus'
+      DB_PASSWORD: 'directus'
+      WEBHOOKS_ENABLED: 'true'
+      PUBLIC_URL: 'http://localhost:8125'
+      CORS_ENABLED: 'true'
+      CORS_ORIGIN: '*'
+    volumes:
+      - ./directus_1/uploads:/directus/uploads
+      - ./directus_1/extensions:/directus/extensions
+    ports:
+      - "8125:8055"
+    networks:
+      - directus_net
+
+  directus2:
+    image: directus/directus:latest
+    container_name: directus2
+    depends_on:
+      - mysql2
+    environment:
+      SECRET: "hvzozfncz_r_secret2"
+      DB_CLIENT: 'mysql'
+      DB_HOST: mysql2
+      DB_PORT: 3306
+      DB_DATABASE: 'directus2'
+      DB_USER: 'directus'
+      DB_PASSWORD: 'directus'
+      WEBHOOKS_ENABLED: 'true'
+      PUBLIC_URL: 'http://localhost:8126'
+      CORS_ENABLED: 'true'
+      CORS_ORIGIN: '*'
+      # ⚡ Ajout pour créer l'admin par défaut
+      ADMIN_EMAIL: "jasonawume5@gmail.com"
+      ADMIN_PASSWORD: "SuperSecret123"
+      ADMIN_FIRSTNAME: "Admin"
+      ADMIN_LASTNAME: "Two"
+    volumes:
+      - ./directus_2/uploads:/directus/uploads
+      - ./directus_2/extensions:/directus/extensions
+    ports:
+      - "8126:8055"
+    networks:
+      - directus_net
+
+  # Swagger UI qui lit directement la spec des instances Directus
+  swagger_ui:
+    image: swaggerapi/swagger-ui:latest
+    container_name: swagger_ui
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./directus-openapi-v3.yaml:/specs/directus-openapi-v3.yaml:ro
+    environment:
+      SWAGGER_JSON: /specs/directus-openapi-v3.yaml
+    networks:
+      - directus_net
+
+  # Nginx reverse proxy (optionnel)
+  nginx:
+    image: nginx:alpine
+    container_name: nginx_directus
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - directus1
+      - directus2
+      - swagger_ui
+    networks:
+      - directus_net

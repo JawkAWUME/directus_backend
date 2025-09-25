@@ -1,0 +1,8 @@
+{
+    "id": "stacked-bar-chart",
+    "name": "Stacked Bar Chart",
+    "description": "Widget custom pour stacked bar chart des articles par utilisateur",
+    "icon": "bar_chart",
+    "entry": "src/App.vue",
+    "type": "app"
+}

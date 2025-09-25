@@ -1,0 +1,2728 @@
+openapi: 3.0.0
+info:
+  title: Directus API
+  version: 1.0.0
+  description: >-
+    Documentation auto-générée à partir des collections Directus.
+
+    ⚡ Inclus uniquement les endpoints `/items/{collection}` et
+    l'authentification.
+
+    Toutes les descriptions sont enrichies pour mieux comprendre les actions
+    disponibles.
+servers:
+  - url: http://localhost:8125
+paths:
+  /auth/login:
+    post:
+      summary: Authentification
+      description: >-
+        Permet de se connecter avec email/mot de passe et récupérer un token
+        JWT.
+
+        ➡️ Ce token doit être utilisé ensuite comme `Authorization: Bearer
+        <token>`.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: admin@example.com
+                password:
+                  type: string
+                  example: ••••••
+              required:
+                - email
+                - password
+      responses:
+        "200":
+          description: Connexion réussie, retourne un JWT
+        "401":
+          description: Identifiants invalides
+      security: []
+  /items/abonnements:
+    get:
+      summary: Lister les abonnements
+      description: |-
+        Récupère tous les enregistrements de la collection **abonnements**.
+
+        🔍 Options possibles :
+        - **limit** : limiter le nombre de résultats
+        - **offset** : décaler pour la pagination
+        - **sort** : trier par champ (ex: field1,-field2)
+        - **filter** : appliquer des filtres complexes en JSON
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Nombre max de résultats
+        - name: offset
+          in: query
+          schema:
+            type: integer
+          description: Décalage pour la pagination
+        - name: sort
+          in: query
+          schema:
+            type: string
+          description: "Tri (ex: field1,-field2)"
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Filtres en JSON
+      responses:
+        "200":
+          description: Liste des enregistrements de la collection **abonnements**
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/abonnements"
+    post:
+      summary: Créer un nouvel élément dans abonnements
+      description: >-
+        Ajoute un enregistrement dans la collection **abonnements**.
+
+        ⚠️ Pour les champs relationnels (many-to-many), cela ajoute un lien
+        entre les deux collections.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/abonnements"
+      responses:
+        "201":
+          description: Un nouvel enregistrement a été créé dans **abonnements**.
+  /items/abonnements/{id}:
+    get:
+      summary: Obtenir un abonnements par ID
+      description: Retourne un enregistrement unique de la collection **abonnements**
+        via son ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Enregistrement de la collection **abonnements** trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/abonnements"
+    patch:
+      summary: Mettre à jour un abonnements
+      description: >-
+        Met à jour un enregistrement existant dans la collection
+        **abonnements**.
+
+        ⚠️ Pour les relations many-to-many, vous pouvez modifier les
+        associations.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/abonnements"
+      responses:
+        "200":
+          description: L'enregistrement de **abonnements** a été mis à jour.
+    delete:
+      summary: Supprimer un abonnements
+      description: Supprime définitivement un enregistrement de la collection
+        **abonnements** par ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: L'enregistrement de **abonnements** a été supprimé.
+  /items/actualites:
+    get:
+      summary: Lister les actualites
+      description: |-
+        Récupère tous les enregistrements de la collection **actualites**.
+
+        🔍 Options possibles :
+        - **limit** : limiter le nombre de résultats
+        - **offset** : décaler pour la pagination
+        - **sort** : trier par champ (ex: field1,-field2)
+        - **filter** : appliquer des filtres complexes en JSON
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Nombre max de résultats
+        - name: offset
+          in: query
+          schema:
+            type: integer
+          description: Décalage pour la pagination
+        - name: sort
+          in: query
+          schema:
+            type: string
+          description: "Tri (ex: field1,-field2)"
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Filtres en JSON
+      responses:
+        "200":
+          description: Liste des enregistrements de la collection **actualites**
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/actualites"
+    post:
+      summary: Créer un nouvel élément dans actualites
+      description: >-
+        Ajoute un enregistrement dans la collection **actualites**.
+
+        ⚠️ Pour les champs relationnels (many-to-many), cela ajoute un lien
+        entre les deux collections.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/actualites"
+      responses:
+        "201":
+          description: Un nouvel enregistrement a été créé dans **actualites**.
+  /items/actualites/{id}:
+    get:
+      summary: Obtenir un actualites par ID
+      description: Retourne un enregistrement unique de la collection **actualites**
+        via son ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Enregistrement de la collection **actualites** trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/actualites"
+    patch:
+      summary: Mettre à jour un actualites
+      description: >-
+        Met à jour un enregistrement existant dans la collection **actualites**.
+
+        ⚠️ Pour les relations many-to-many, vous pouvez modifier les
+        associations.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/actualites"
+      responses:
+        "200":
+          description: L'enregistrement de **actualites** a été mis à jour.
+    delete:
+      summary: Supprimer un actualites
+      description: Supprime définitivement un enregistrement de la collection
+        **actualites** par ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: L'enregistrement de **actualites** a été supprimé.
+  /items/articles:
+    get:
+      summary: Lister les articles
+      description: |-
+        Récupère tous les enregistrements de la collection **articles**.
+
+        🔍 Options possibles :
+        - **limit** : limiter le nombre de résultats
+        - **offset** : décaler pour la pagination
+        - **sort** : trier par champ (ex: field1,-field2)
+        - **filter** : appliquer des filtres complexes en JSON
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Nombre max de résultats
+        - name: offset
+          in: query
+          schema:
+            type: integer
+          description: Décalage pour la pagination
+        - name: sort
+          in: query
+          schema:
+            type: string
+          description: "Tri (ex: field1,-field2)"
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Filtres en JSON
+      responses:
+        "200":
+          description: Liste des enregistrements de la collection **articles**
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/articles"
+    post:
+      summary: Créer un nouvel élément dans articles
+      description: >-
+        Ajoute un enregistrement dans la collection **articles**.
+
+        ⚠️ Pour les champs relationnels (many-to-many), cela ajoute un lien
+        entre les deux collections.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/articles"
+      responses:
+        "201":
+          description: Un nouvel enregistrement a été créé dans **articles**.
+  /items/articles/{id}:
+    get:
+      summary: Obtenir un articles par ID
+      description: Retourne un enregistrement unique de la collection **articles** via
+        son ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Enregistrement de la collection **articles** trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/articles"
+    patch:
+      summary: Mettre à jour un articles
+      description: >-
+        Met à jour un enregistrement existant dans la collection **articles**.
+
+        ⚠️ Pour les relations many-to-many, vous pouvez modifier les
+        associations.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/articles"
+      responses:
+        "200":
+          description: L'enregistrement de **articles** a été mis à jour.
+    delete:
+      summary: Supprimer un articles
+      description: Supprime définitivement un enregistrement de la collection
+        **articles** par ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: L'enregistrement de **articles** a été supprimé.
+  /items/articles_tags:
+    get:
+      summary: Lister les articles_tags
+      description: |-
+        Récupère tous les enregistrements de la collection **articles_tags**.
+
+        🔍 Options possibles :
+        - **limit** : limiter le nombre de résultats
+        - **offset** : décaler pour la pagination
+        - **sort** : trier par champ (ex: field1,-field2)
+        - **filter** : appliquer des filtres complexes en JSON
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Nombre max de résultats
+        - name: offset
+          in: query
+          schema:
+            type: integer
+          description: Décalage pour la pagination
+        - name: sort
+          in: query
+          schema:
+            type: string
+          description: "Tri (ex: field1,-field2)"
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Filtres en JSON
+      responses:
+        "200":
+          description: Liste des enregistrements de la collection **articles_tags**
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/articles_tags"
+    post:
+      summary: Créer un nouvel élément dans articles_tags
+      description: >-
+        Ajoute un enregistrement dans la collection **articles_tags**.
+
+        ⚠️ Pour les champs relationnels (many-to-many), cela ajoute un lien
+        entre les deux collections.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/articles_tags"
+      responses:
+        "201":
+          description: Un nouvel enregistrement a été créé dans **articles_tags**.
+  /items/articles_tags/{id}:
+    get:
+      summary: Obtenir un articles_tags par ID
+      description: Retourne un enregistrement unique de la collection
+        **articles_tags** via son ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Enregistrement de la collection **articles_tags** trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/articles_tags"
+    patch:
+      summary: Mettre à jour un articles_tags
+      description: >-
+        Met à jour un enregistrement existant dans la collection
+        **articles_tags**.
+
+        ⚠️ Pour les relations many-to-many, vous pouvez modifier les
+        associations.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/articles_tags"
+      responses:
+        "200":
+          description: L'enregistrement de **articles_tags** a été mis à jour.
+    delete:
+      summary: Supprimer un articles_tags
+      description: Supprime définitivement un enregistrement de la collection
+        **articles_tags** par ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: L'enregistrement de **articles_tags** a été supprimé.
+  /items/articles_translations:
+    get:
+      summary: Lister les articles_translations
+      description: >-
+        Récupère tous les enregistrements de la collection
+        **articles_translations**.
+
+
+        🔍 Options possibles :
+
+        - **limit** : limiter le nombre de résultats
+
+        - **offset** : décaler pour la pagination
+
+        - **sort** : trier par champ (ex: field1,-field2)
+
+        - **filter** : appliquer des filtres complexes en JSON
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Nombre max de résultats
+        - name: offset
+          in: query
+          schema:
+            type: integer
+          description: Décalage pour la pagination
+        - name: sort
+          in: query
+          schema:
+            type: string
+          description: "Tri (ex: field1,-field2)"
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Filtres en JSON
+      responses:
+        "200":
+          description: Liste des enregistrements de la collection **articles_translations**
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/articles_translations"
+    post:
+      summary: Créer un nouvel élément dans articles_translations
+      description: >-
+        Ajoute un enregistrement dans la collection **articles_translations**.
+
+        ⚠️ Pour les champs relationnels (many-to-many), cela ajoute un lien
+        entre les deux collections.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/articles_translations"
+      responses:
+        "201":
+          description: Un nouvel enregistrement a été créé dans **articles_translations**.
+  /items/articles_translations/{id}:
+    get:
+      summary: Obtenir un articles_translations par ID
+      description: Retourne un enregistrement unique de la collection
+        **articles_translations** via son ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Enregistrement de la collection **articles_translations** trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/articles_translations"
+    patch:
+      summary: Mettre à jour un articles_translations
+      description: >-
+        Met à jour un enregistrement existant dans la collection
+        **articles_translations**.
+
+        ⚠️ Pour les relations many-to-many, vous pouvez modifier les
+        associations.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/articles_translations"
+      responses:
+        "200":
+          description: L'enregistrement de **articles_translations** a été mis à jour.
+    delete:
+      summary: Supprimer un articles_translations
+      description: Supprime définitivement un enregistrement de la collection
+        **articles_translations** par ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: L'enregistrement de **articles_translations** a été supprimé.
+  /items/categories:
+    get:
+      summary: Lister les categories
+      description: |-
+        Récupère tous les enregistrements de la collection **categories**.
+
+        🔍 Options possibles :
+        - **limit** : limiter le nombre de résultats
+        - **offset** : décaler pour la pagination
+        - **sort** : trier par champ (ex: field1,-field2)
+        - **filter** : appliquer des filtres complexes en JSON
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Nombre max de résultats
+        - name: offset
+          in: query
+          schema:
+            type: integer
+          description: Décalage pour la pagination
+        - name: sort
+          in: query
+          schema:
+            type: string
+          description: "Tri (ex: field1,-field2)"
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Filtres en JSON
+      responses:
+        "200":
+          description: Liste des enregistrements de la collection **categories**
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/categories"
+    post:
+      summary: Créer un nouvel élément dans categories
+      description: >-
+        Ajoute un enregistrement dans la collection **categories**.
+
+        ⚠️ Pour les champs relationnels (many-to-many), cela ajoute un lien
+        entre les deux collections.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/categories"
+      responses:
+        "201":
+          description: Un nouvel enregistrement a été créé dans **categories**.
+  /items/categories/{id}:
+    get:
+      summary: Obtenir un categories par ID
+      description: Retourne un enregistrement unique de la collection **categories**
+        via son ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Enregistrement de la collection **categories** trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/categories"
+    patch:
+      summary: Mettre à jour un categories
+      description: >-
+        Met à jour un enregistrement existant dans la collection **categories**.
+
+        ⚠️ Pour les relations many-to-many, vous pouvez modifier les
+        associations.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/categories"
+      responses:
+        "200":
+          description: L'enregistrement de **categories** a été mis à jour.
+    delete:
+      summary: Supprimer un categories
+      description: Supprime définitivement un enregistrement de la collection
+        **categories** par ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: L'enregistrement de **categories** a été supprimé.
+  /items/commentaires:
+    get:
+      summary: Lister les commentaires
+      description: |-
+        Récupère tous les enregistrements de la collection **commentaires**.
+
+        🔍 Options possibles :
+        - **limit** : limiter le nombre de résultats
+        - **offset** : décaler pour la pagination
+        - **sort** : trier par champ (ex: field1,-field2)
+        - **filter** : appliquer des filtres complexes en JSON
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Nombre max de résultats
+        - name: offset
+          in: query
+          schema:
+            type: integer
+          description: Décalage pour la pagination
+        - name: sort
+          in: query
+          schema:
+            type: string
+          description: "Tri (ex: field1,-field2)"
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Filtres en JSON
+      responses:
+        "200":
+          description: Liste des enregistrements de la collection **commentaires**
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/commentaires"
+    post:
+      summary: Créer un nouvel élément dans commentaires
+      description: >-
+        Ajoute un enregistrement dans la collection **commentaires**.
+
+        ⚠️ Pour les champs relationnels (many-to-many), cela ajoute un lien
+        entre les deux collections.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/commentaires"
+      responses:
+        "201":
+          description: Un nouvel enregistrement a été créé dans **commentaires**.
+  /items/commentaires/{id}:
+    get:
+      summary: Obtenir un commentaires par ID
+      description: Retourne un enregistrement unique de la collection **commentaires**
+        via son ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Enregistrement de la collection **commentaires** trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/commentaires"
+    patch:
+      summary: Mettre à jour un commentaires
+      description: >-
+        Met à jour un enregistrement existant dans la collection
+        **commentaires**.
+
+        ⚠️ Pour les relations many-to-many, vous pouvez modifier les
+        associations.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/commentaires"
+      responses:
+        "200":
+          description: L'enregistrement de **commentaires** a été mis à jour.
+    delete:
+      summary: Supprimer un commentaires
+      description: Supprime définitivement un enregistrement de la collection
+        **commentaires** par ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: L'enregistrement de **commentaires** a été supprimé.
+  /items/languages:
+    get:
+      summary: Lister les languages
+      description: |-
+        Récupère tous les enregistrements de la collection **languages**.
+
+        🔍 Options possibles :
+        - **limit** : limiter le nombre de résultats
+        - **offset** : décaler pour la pagination
+        - **sort** : trier par champ (ex: field1,-field2)
+        - **filter** : appliquer des filtres complexes en JSON
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Nombre max de résultats
+        - name: offset
+          in: query
+          schema:
+            type: integer
+          description: Décalage pour la pagination
+        - name: sort
+          in: query
+          schema:
+            type: string
+          description: "Tri (ex: field1,-field2)"
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Filtres en JSON
+      responses:
+        "200":
+          description: Liste des enregistrements de la collection **languages**
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/languages"
+    post:
+      summary: Créer un nouvel élément dans languages
+      description: >-
+        Ajoute un enregistrement dans la collection **languages**.
+
+        ⚠️ Pour les champs relationnels (many-to-many), cela ajoute un lien
+        entre les deux collections.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/languages"
+      responses:
+        "201":
+          description: Un nouvel enregistrement a été créé dans **languages**.
+  /items/languages/{id}:
+    get:
+      summary: Obtenir un languages par ID
+      description: Retourne un enregistrement unique de la collection **languages**
+        via son ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Enregistrement de la collection **languages** trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/languages"
+    patch:
+      summary: Mettre à jour un languages
+      description: >-
+        Met à jour un enregistrement existant dans la collection **languages**.
+
+        ⚠️ Pour les relations many-to-many, vous pouvez modifier les
+        associations.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/languages"
+      responses:
+        "200":
+          description: L'enregistrement de **languages** a été mis à jour.
+    delete:
+      summary: Supprimer un languages
+      description: Supprime définitivement un enregistrement de la collection
+        **languages** par ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: L'enregistrement de **languages** a été supprimé.
+  /items/log_actions:
+    get:
+      summary: Lister les log_actions
+      description: |-
+        Récupère tous les enregistrements de la collection **log_actions**.
+
+        🔍 Options possibles :
+        - **limit** : limiter le nombre de résultats
+        - **offset** : décaler pour la pagination
+        - **sort** : trier par champ (ex: field1,-field2)
+        - **filter** : appliquer des filtres complexes en JSON
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Nombre max de résultats
+        - name: offset
+          in: query
+          schema:
+            type: integer
+          description: Décalage pour la pagination
+        - name: sort
+          in: query
+          schema:
+            type: string
+          description: "Tri (ex: field1,-field2)"
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Filtres en JSON
+      responses:
+        "200":
+          description: Liste des enregistrements de la collection **log_actions**
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/log_actions"
+    post:
+      summary: Créer un nouvel élément dans log_actions
+      description: >-
+        Ajoute un enregistrement dans la collection **log_actions**.
+
+        ⚠️ Pour les champs relationnels (many-to-many), cela ajoute un lien
+        entre les deux collections.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/log_actions"
+      responses:
+        "201":
+          description: Un nouvel enregistrement a été créé dans **log_actions**.
+  /items/log_actions/{id}:
+    get:
+      summary: Obtenir un log_actions par ID
+      description: Retourne un enregistrement unique de la collection **log_actions**
+        via son ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Enregistrement de la collection **log_actions** trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/log_actions"
+    patch:
+      summary: Mettre à jour un log_actions
+      description: >-
+        Met à jour un enregistrement existant dans la collection
+        **log_actions**.
+
+        ⚠️ Pour les relations many-to-many, vous pouvez modifier les
+        associations.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/log_actions"
+      responses:
+        "200":
+          description: L'enregistrement de **log_actions** a été mis à jour.
+    delete:
+      summary: Supprimer un log_actions
+      description: Supprime définitivement un enregistrement de la collection
+        **log_actions** par ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: L'enregistrement de **log_actions** a été supprimé.
+  /items/log_publications:
+    get:
+      summary: Lister les log_publications
+      description: |-
+        Récupère tous les enregistrements de la collection **log_publications**.
+
+        🔍 Options possibles :
+        - **limit** : limiter le nombre de résultats
+        - **offset** : décaler pour la pagination
+        - **sort** : trier par champ (ex: field1,-field2)
+        - **filter** : appliquer des filtres complexes en JSON
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Nombre max de résultats
+        - name: offset
+          in: query
+          schema:
+            type: integer
+          description: Décalage pour la pagination
+        - name: sort
+          in: query
+          schema:
+            type: string
+          description: "Tri (ex: field1,-field2)"
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Filtres en JSON
+      responses:
+        "200":
+          description: Liste des enregistrements de la collection **log_publications**
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/log_publications"
+    post:
+      summary: Créer un nouvel élément dans log_publications
+      description: >-
+        Ajoute un enregistrement dans la collection **log_publications**.
+
+        ⚠️ Pour les champs relationnels (many-to-many), cela ajoute un lien
+        entre les deux collections.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/log_publications"
+      responses:
+        "201":
+          description: Un nouvel enregistrement a été créé dans **log_publications**.
+  /items/log_publications/{id}:
+    get:
+      summary: Obtenir un log_publications par ID
+      description: Retourne un enregistrement unique de la collection
+        **log_publications** via son ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Enregistrement de la collection **log_publications** trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/log_publications"
+    patch:
+      summary: Mettre à jour un log_publications
+      description: >-
+        Met à jour un enregistrement existant dans la collection
+        **log_publications**.
+
+        ⚠️ Pour les relations many-to-many, vous pouvez modifier les
+        associations.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/log_publications"
+      responses:
+        "200":
+          description: L'enregistrement de **log_publications** a été mis à jour.
+    delete:
+      summary: Supprimer un log_publications
+      description: Supprime définitivement un enregistrement de la collection
+        **log_publications** par ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: L'enregistrement de **log_publications** a été supprimé.
+  /items/logs_formatting:
+    get:
+      summary: Lister les logs_formatting
+      description: |-
+        Récupère tous les enregistrements de la collection **logs_formatting**.
+
+        🔍 Options possibles :
+        - **limit** : limiter le nombre de résultats
+        - **offset** : décaler pour la pagination
+        - **sort** : trier par champ (ex: field1,-field2)
+        - **filter** : appliquer des filtres complexes en JSON
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Nombre max de résultats
+        - name: offset
+          in: query
+          schema:
+            type: integer
+          description: Décalage pour la pagination
+        - name: sort
+          in: query
+          schema:
+            type: string
+          description: "Tri (ex: field1,-field2)"
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Filtres en JSON
+      responses:
+        "200":
+          description: Liste des enregistrements de la collection **logs_formatting**
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/logs_formatting"
+    post:
+      summary: Créer un nouvel élément dans logs_formatting
+      description: >-
+        Ajoute un enregistrement dans la collection **logs_formatting**.
+
+        ⚠️ Pour les champs relationnels (many-to-many), cela ajoute un lien
+        entre les deux collections.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/logs_formatting"
+      responses:
+        "201":
+          description: Un nouvel enregistrement a été créé dans **logs_formatting**.
+  /items/logs_formatting/{id}:
+    get:
+      summary: Obtenir un logs_formatting par ID
+      description: Retourne un enregistrement unique de la collection
+        **logs_formatting** via son ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Enregistrement de la collection **logs_formatting** trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/logs_formatting"
+    patch:
+      summary: Mettre à jour un logs_formatting
+      description: >-
+        Met à jour un enregistrement existant dans la collection
+        **logs_formatting**.
+
+        ⚠️ Pour les relations many-to-many, vous pouvez modifier les
+        associations.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/logs_formatting"
+      responses:
+        "200":
+          description: L'enregistrement de **logs_formatting** a été mis à jour.
+    delete:
+      summary: Supprimer un logs_formatting
+      description: Supprime définitivement un enregistrement de la collection
+        **logs_formatting** par ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: L'enregistrement de **logs_formatting** a été supprimé.
+  /items/medias:
+    get:
+      summary: Lister les medias
+      description: |-
+        Récupère tous les enregistrements de la collection **medias**.
+
+        🔍 Options possibles :
+        - **limit** : limiter le nombre de résultats
+        - **offset** : décaler pour la pagination
+        - **sort** : trier par champ (ex: field1,-field2)
+        - **filter** : appliquer des filtres complexes en JSON
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Nombre max de résultats
+        - name: offset
+          in: query
+          schema:
+            type: integer
+          description: Décalage pour la pagination
+        - name: sort
+          in: query
+          schema:
+            type: string
+          description: "Tri (ex: field1,-field2)"
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Filtres en JSON
+      responses:
+        "200":
+          description: Liste des enregistrements de la collection **medias**
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/medias"
+    post:
+      summary: Créer un nouvel élément dans medias
+      description: >-
+        Ajoute un enregistrement dans la collection **medias**.
+
+        ⚠️ Pour les champs relationnels (many-to-many), cela ajoute un lien
+        entre les deux collections.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/medias"
+      responses:
+        "201":
+          description: Un nouvel enregistrement a été créé dans **medias**.
+  /items/medias/{id}:
+    get:
+      summary: Obtenir un medias par ID
+      description: Retourne un enregistrement unique de la collection **medias** via son ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Enregistrement de la collection **medias** trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/medias"
+    patch:
+      summary: Mettre à jour un medias
+      description: >-
+        Met à jour un enregistrement existant dans la collection **medias**.
+
+        ⚠️ Pour les relations many-to-many, vous pouvez modifier les
+        associations.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/medias"
+      responses:
+        "200":
+          description: L'enregistrement de **medias** a été mis à jour.
+    delete:
+      summary: Supprimer un medias
+      description: Supprime définitivement un enregistrement de la collection
+        **medias** par ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: L'enregistrement de **medias** a été supprimé.
+  /items/newsletters:
+    get:
+      summary: Lister les newsletters
+      description: |-
+        Récupère tous les enregistrements de la collection **newsletters**.
+
+        🔍 Options possibles :
+        - **limit** : limiter le nombre de résultats
+        - **offset** : décaler pour la pagination
+        - **sort** : trier par champ (ex: field1,-field2)
+        - **filter** : appliquer des filtres complexes en JSON
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Nombre max de résultats
+        - name: offset
+          in: query
+          schema:
+            type: integer
+          description: Décalage pour la pagination
+        - name: sort
+          in: query
+          schema:
+            type: string
+          description: "Tri (ex: field1,-field2)"
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Filtres en JSON
+      responses:
+        "200":
+          description: Liste des enregistrements de la collection **newsletters**
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/newsletters"
+    post:
+      summary: Créer un nouvel élément dans newsletters
+      description: >-
+        Ajoute un enregistrement dans la collection **newsletters**.
+
+        ⚠️ Pour les champs relationnels (many-to-many), cela ajoute un lien
+        entre les deux collections.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/newsletters"
+      responses:
+        "201":
+          description: Un nouvel enregistrement a été créé dans **newsletters**.
+  /items/newsletters/{id}:
+    get:
+      summary: Obtenir un newsletters par ID
+      description: Retourne un enregistrement unique de la collection **newsletters**
+        via son ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Enregistrement de la collection **newsletters** trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/newsletters"
+    patch:
+      summary: Mettre à jour un newsletters
+      description: >-
+        Met à jour un enregistrement existant dans la collection
+        **newsletters**.
+
+        ⚠️ Pour les relations many-to-many, vous pouvez modifier les
+        associations.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/newsletters"
+      responses:
+        "200":
+          description: L'enregistrement de **newsletters** a été mis à jour.
+    delete:
+      summary: Supprimer un newsletters
+      description: Supprime définitivement un enregistrement de la collection
+        **newsletters** par ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: L'enregistrement de **newsletters** a été supprimé.
+  /items/newsletters_abonnements:
+    get:
+      summary: Lister les newsletters_abonnements
+      description: >-
+        Récupère tous les enregistrements de la collection
+        **newsletters_abonnements**.
+
+
+        🔍 Options possibles :
+
+        - **limit** : limiter le nombre de résultats
+
+        - **offset** : décaler pour la pagination
+
+        - **sort** : trier par champ (ex: field1,-field2)
+
+        - **filter** : appliquer des filtres complexes en JSON
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Nombre max de résultats
+        - name: offset
+          in: query
+          schema:
+            type: integer
+          description: Décalage pour la pagination
+        - name: sort
+          in: query
+          schema:
+            type: string
+          description: "Tri (ex: field1,-field2)"
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Filtres en JSON
+      responses:
+        "200":
+          description: Liste des enregistrements de la collection
+            **newsletters_abonnements**
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/newsletters_abonnements"
+    post:
+      summary: Créer un nouvel élément dans newsletters_abonnements
+      description: >-
+        Ajoute un enregistrement dans la collection **newsletters_abonnements**.
+
+        ⚠️ Pour les champs relationnels (many-to-many), cela ajoute un lien
+        entre les deux collections.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/newsletters_abonnements"
+      responses:
+        "201":
+          description: Un nouvel enregistrement a été créé dans **newsletters_abonnements**.
+  /items/newsletters_abonnements/{id}:
+    get:
+      summary: Obtenir un newsletters_abonnements par ID
+      description: Retourne un enregistrement unique de la collection
+        **newsletters_abonnements** via son ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Enregistrement de la collection **newsletters_abonnements** trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/newsletters_abonnements"
+    patch:
+      summary: Mettre à jour un newsletters_abonnements
+      description: >-
+        Met à jour un enregistrement existant dans la collection
+        **newsletters_abonnements**.
+
+        ⚠️ Pour les relations many-to-many, vous pouvez modifier les
+        associations.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/newsletters_abonnements"
+      responses:
+        "200":
+          description: L'enregistrement de **newsletters_abonnements** a été mis à jour.
+    delete:
+      summary: Supprimer un newsletters_abonnements
+      description: Supprime définitivement un enregistrement de la collection
+        **newsletters_abonnements** par ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: L'enregistrement de **newsletters_abonnements** a été supprimé.
+  /items/pages:
+    get:
+      summary: Lister les pages
+      description: |-
+        Récupère tous les enregistrements de la collection **pages**.
+
+        🔍 Options possibles :
+        - **limit** : limiter le nombre de résultats
+        - **offset** : décaler pour la pagination
+        - **sort** : trier par champ (ex: field1,-field2)
+        - **filter** : appliquer des filtres complexes en JSON
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Nombre max de résultats
+        - name: offset
+          in: query
+          schema:
+            type: integer
+          description: Décalage pour la pagination
+        - name: sort
+          in: query
+          schema:
+            type: string
+          description: "Tri (ex: field1,-field2)"
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Filtres en JSON
+      responses:
+        "200":
+          description: Liste des enregistrements de la collection **pages**
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/pages"
+    post:
+      summary: Créer un nouvel élément dans pages
+      description: >-
+        Ajoute un enregistrement dans la collection **pages**.
+
+        ⚠️ Pour les champs relationnels (many-to-many), cela ajoute un lien
+        entre les deux collections.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/pages"
+      responses:
+        "201":
+          description: Un nouvel enregistrement a été créé dans **pages**.
+  /items/pages/{id}:
+    get:
+      summary: Obtenir un pages par ID
+      description: Retourne un enregistrement unique de la collection **pages** via son ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Enregistrement de la collection **pages** trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/pages"
+    patch:
+      summary: Mettre à jour un pages
+      description: >-
+        Met à jour un enregistrement existant dans la collection **pages**.
+
+        ⚠️ Pour les relations many-to-many, vous pouvez modifier les
+        associations.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/pages"
+      responses:
+        "200":
+          description: L'enregistrement de **pages** a été mis à jour.
+    delete:
+      summary: Supprimer un pages
+      description: Supprime définitivement un enregistrement de la collection
+        **pages** par ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: L'enregistrement de **pages** a été supprimé.
+  /items/segments:
+    get:
+      summary: Lister les segments
+      description: |-
+        Récupère tous les enregistrements de la collection **segments**.
+
+        🔍 Options possibles :
+        - **limit** : limiter le nombre de résultats
+        - **offset** : décaler pour la pagination
+        - **sort** : trier par champ (ex: field1,-field2)
+        - **filter** : appliquer des filtres complexes en JSON
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Nombre max de résultats
+        - name: offset
+          in: query
+          schema:
+            type: integer
+          description: Décalage pour la pagination
+        - name: sort
+          in: query
+          schema:
+            type: string
+          description: "Tri (ex: field1,-field2)"
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Filtres en JSON
+      responses:
+        "200":
+          description: Liste des enregistrements de la collection **segments**
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/segments"
+    post:
+      summary: Créer un nouvel élément dans segments
+      description: >-
+        Ajoute un enregistrement dans la collection **segments**.
+
+        ⚠️ Pour les champs relationnels (many-to-many), cela ajoute un lien
+        entre les deux collections.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/segments"
+      responses:
+        "201":
+          description: Un nouvel enregistrement a été créé dans **segments**.
+  /items/segments/{id}:
+    get:
+      summary: Obtenir un segments par ID
+      description: Retourne un enregistrement unique de la collection **segments** via
+        son ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Enregistrement de la collection **segments** trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/segments"
+    patch:
+      summary: Mettre à jour un segments
+      description: >-
+        Met à jour un enregistrement existant dans la collection **segments**.
+
+        ⚠️ Pour les relations many-to-many, vous pouvez modifier les
+        associations.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/segments"
+      responses:
+        "200":
+          description: L'enregistrement de **segments** a été mis à jour.
+    delete:
+      summary: Supprimer un segments
+      description: Supprime définitivement un enregistrement de la collection
+        **segments** par ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: L'enregistrement de **segments** a été supprimé.
+  /items/tags:
+    get:
+      summary: Lister les tags
+      description: |-
+        Récupère tous les enregistrements de la collection **tags**.
+
+        🔍 Options possibles :
+        - **limit** : limiter le nombre de résultats
+        - **offset** : décaler pour la pagination
+        - **sort** : trier par champ (ex: field1,-field2)
+        - **filter** : appliquer des filtres complexes en JSON
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Nombre max de résultats
+        - name: offset
+          in: query
+          schema:
+            type: integer
+          description: Décalage pour la pagination
+        - name: sort
+          in: query
+          schema:
+            type: string
+          description: "Tri (ex: field1,-field2)"
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Filtres en JSON
+      responses:
+        "200":
+          description: Liste des enregistrements de la collection **tags**
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/tags"
+    post:
+      summary: Créer un nouvel élément dans tags
+      description: >-
+        Ajoute un enregistrement dans la collection **tags**.
+
+        ⚠️ Pour les champs relationnels (many-to-many), cela ajoute un lien
+        entre les deux collections.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/tags"
+      responses:
+        "201":
+          description: Un nouvel enregistrement a été créé dans **tags**.
+  /items/tags/{id}:
+    get:
+      summary: Obtenir un tags par ID
+      description: Retourne un enregistrement unique de la collection **tags** via son ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Enregistrement de la collection **tags** trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tags"
+    patch:
+      summary: Mettre à jour un tags
+      description: >-
+        Met à jour un enregistrement existant dans la collection **tags**.
+
+        ⚠️ Pour les relations many-to-many, vous pouvez modifier les
+        associations.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/tags"
+      responses:
+        "200":
+          description: L'enregistrement de **tags** a été mis à jour.
+    delete:
+      summary: Supprimer un tags
+      description: Supprime définitivement un enregistrement de la collection **tags**
+        par ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: L'enregistrement de **tags** a été supprimé.
+  /items/tags_actualites_1:
+    get:
+      summary: Lister les tags_actualites_1
+      description: >-
+        Récupère tous les enregistrements de la collection
+        **tags_actualites_1**.
+
+
+        🔍 Options possibles :
+
+        - **limit** : limiter le nombre de résultats
+
+        - **offset** : décaler pour la pagination
+
+        - **sort** : trier par champ (ex: field1,-field2)
+
+        - **filter** : appliquer des filtres complexes en JSON
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Nombre max de résultats
+        - name: offset
+          in: query
+          schema:
+            type: integer
+          description: Décalage pour la pagination
+        - name: sort
+          in: query
+          schema:
+            type: string
+          description: "Tri (ex: field1,-field2)"
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Filtres en JSON
+      responses:
+        "200":
+          description: Liste des enregistrements de la collection **tags_actualites_1**
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/tags_actualites_1"
+    post:
+      summary: Créer un nouvel élément dans tags_actualites_1
+      description: >-
+        Ajoute un enregistrement dans la collection **tags_actualites_1**.
+
+        ⚠️ Pour les champs relationnels (many-to-many), cela ajoute un lien
+        entre les deux collections.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/tags_actualites_1"
+      responses:
+        "201":
+          description: Un nouvel enregistrement a été créé dans **tags_actualites_1**.
+  /items/tags_actualites_1/{id}:
+    get:
+      summary: Obtenir un tags_actualites_1 par ID
+      description: Retourne un enregistrement unique de la collection
+        **tags_actualites_1** via son ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Enregistrement de la collection **tags_actualites_1** trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tags_actualites_1"
+    patch:
+      summary: Mettre à jour un tags_actualites_1
+      description: >-
+        Met à jour un enregistrement existant dans la collection
+        **tags_actualites_1**.
+
+        ⚠️ Pour les relations many-to-many, vous pouvez modifier les
+        associations.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/tags_actualites_1"
+      responses:
+        "200":
+          description: L'enregistrement de **tags_actualites_1** a été mis à jour.
+    delete:
+      summary: Supprimer un tags_actualites_1
+      description: Supprime définitivement un enregistrement de la collection
+        **tags_actualites_1** par ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: L'enregistrement de **tags_actualites_1** a été supprimé.
+  /items/tags_articles_1:
+    get:
+      summary: Lister les tags_articles_1
+      description: |-
+        Récupère tous les enregistrements de la collection **tags_articles_1**.
+
+        🔍 Options possibles :
+        - **limit** : limiter le nombre de résultats
+        - **offset** : décaler pour la pagination
+        - **sort** : trier par champ (ex: field1,-field2)
+        - **filter** : appliquer des filtres complexes en JSON
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Nombre max de résultats
+        - name: offset
+          in: query
+          schema:
+            type: integer
+          description: Décalage pour la pagination
+        - name: sort
+          in: query
+          schema:
+            type: string
+          description: "Tri (ex: field1,-field2)"
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Filtres en JSON
+      responses:
+        "200":
+          description: Liste des enregistrements de la collection **tags_articles_1**
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/tags_articles_1"
+    post:
+      summary: Créer un nouvel élément dans tags_articles_1
+      description: >-
+        Ajoute un enregistrement dans la collection **tags_articles_1**.
+
+        ⚠️ Pour les champs relationnels (many-to-many), cela ajoute un lien
+        entre les deux collections.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/tags_articles_1"
+      responses:
+        "201":
+          description: Un nouvel enregistrement a été créé dans **tags_articles_1**.
+  /items/tags_articles_1/{id}:
+    get:
+      summary: Obtenir un tags_articles_1 par ID
+      description: Retourne un enregistrement unique de la collection
+        **tags_articles_1** via son ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Enregistrement de la collection **tags_articles_1** trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tags_articles_1"
+    patch:
+      summary: Mettre à jour un tags_articles_1
+      description: >-
+        Met à jour un enregistrement existant dans la collection
+        **tags_articles_1**.
+
+        ⚠️ Pour les relations many-to-many, vous pouvez modifier les
+        associations.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/tags_articles_1"
+      responses:
+        "200":
+          description: L'enregistrement de **tags_articles_1** a été mis à jour.
+    delete:
+      summary: Supprimer un tags_articles_1
+      description: Supprime définitivement un enregistrement de la collection
+        **tags_articles_1** par ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: L'enregistrement de **tags_articles_1** a été supprimé.
+  /items/utilisateurs:
+    get:
+      summary: Lister les utilisateurs
+      description: |-
+        Récupère tous les enregistrements de la collection **utilisateurs**.
+
+        🔍 Options possibles :
+        - **limit** : limiter le nombre de résultats
+        - **offset** : décaler pour la pagination
+        - **sort** : trier par champ (ex: field1,-field2)
+        - **filter** : appliquer des filtres complexes en JSON
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Nombre max de résultats
+        - name: offset
+          in: query
+          schema:
+            type: integer
+          description: Décalage pour la pagination
+        - name: sort
+          in: query
+          schema:
+            type: string
+          description: "Tri (ex: field1,-field2)"
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Filtres en JSON
+      responses:
+        "200":
+          description: Liste des enregistrements de la collection **utilisateurs**
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/utilisateurs"
+    post:
+      summary: Créer un nouvel élément dans utilisateurs
+      description: >-
+        Ajoute un enregistrement dans la collection **utilisateurs**.
+
+        ⚠️ Pour les champs relationnels (many-to-many), cela ajoute un lien
+        entre les deux collections.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/utilisateurs"
+      responses:
+        "201":
+          description: Un nouvel enregistrement a été créé dans **utilisateurs**.
+  /items/utilisateurs/{id}:
+    get:
+      summary: Obtenir un utilisateurs par ID
+      description: Retourne un enregistrement unique de la collection **utilisateurs**
+        via son ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Enregistrement de la collection **utilisateurs** trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/utilisateurs"
+    patch:
+      summary: Mettre à jour un utilisateurs
+      description: >-
+        Met à jour un enregistrement existant dans la collection
+        **utilisateurs**.
+
+        ⚠️ Pour les relations many-to-many, vous pouvez modifier les
+        associations.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/utilisateurs"
+      responses:
+        "200":
+          description: L'enregistrement de **utilisateurs** a été mis à jour.
+    delete:
+      summary: Supprimer un utilisateurs
+      description: Supprime définitivement un enregistrement de la collection
+        **utilisateurs** par ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: L'enregistrement de **utilisateurs** a été supprimé.
+components:
+  schemas:
+    abonnements:
+      type: object
+      description: Schéma de la collection **abonnements**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        user:
+          type: integer
+        actif:
+          type: boolean
+        date_desactivation:
+          type: string
+          format: date-time
+      required:
+        - user
+    actualites:
+      type: object
+      description: Schéma de la collection **actualites**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        titre:
+          type: string
+        contenu:
+          type: string
+        image:
+          type: string
+        etat:
+          type: string
+        auteur:
+          type: integer
+        slug:
+          type: string
+        mise_en_avant:
+          type: boolean
+      required:
+        - titre
+        - contenu
+        - auteur
+        - slug
+    articles:
+      type: object
+      description: Schéma de la collection **articles**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        titre:
+          type: string
+        slug:
+          type: string
+        etat:
+          type: string
+        date_publication:
+          type: string
+          format: date-time
+        categorie:
+          type: integer
+        contenu:
+          type: string
+        image_couverture:
+          type: integer
+        auteur:
+          type: integer
+        page_associee:
+          type: integer
+        translations:
+          type: string
+        tags:
+          type: string
+      required:
+        - titre
+        - slug
+        - contenu
+    articles_tags:
+      type: object
+      description: Schéma de la collection **articles_tags**
+      properties:
+        id:
+          type: integer
+        articles_id:
+          type: integer
+        tags_id:
+          type: integer
+    articles_translations:
+      type: object
+      description: Schéma de la collection **articles_translations**
+      properties:
+        id:
+          type: integer
+        articles_id:
+          type: integer
+        languages_code:
+          type: string
+        titre:
+          type: string
+        slug:
+          type: string
+        contenu:
+          type: string
+    categories:
+      type: object
+      description: Schéma de la collection **categories**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        nom:
+          type: string
+        slug:
+          type: string
+        ordre:
+          type: integer
+        icone:
+          type: integer
+        active:
+          type: boolean
+      required:
+        - nom
+    commentaires:
+      type: object
+      description: Schéma de la collection **commentaires**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        article:
+          type: integer
+        contenu:
+          type: string
+        statut:
+          type: string
+        utilisateur:
+          type: integer
+        motif_rejet:
+          type: string
+      required:
+        - contenu
+        - utilisateur
+    languages:
+      type: object
+      description: Schéma de la collection **languages**
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        direction:
+          type: string
+    log_actions:
+      type: object
+      description: Schéma de la collection **log_actions**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        utilisateur:
+          type: integer
+        action:
+          type: string
+        cible:
+          type: string
+        element_id:
+          type: string
+      required:
+        - utilisateur
+    log_publications:
+      type: object
+      description: Schéma de la collection **log_publications**
+      properties:
+        id:
+          type: integer
+        status:
+          type: string
+        user_created:
+          type: string
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        type_action:
+          type: string
+        article:
+          type: integer
+        acteur:
+          type: integer
+      required:
+        - type_action
+        - article
+    logs_formatting:
+      type: object
+      description: Schéma de la collection **logs_formatting**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        champ:
+          type: string
+        ancienne_valeur:
+          type: string
+        valeur_normalisee:
+          type: string
+    medias:
+      type: object
+      description: Schéma de la collection **medias**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        titre:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+        fichier_image:
+          type: string
+        fichier_video:
+          type: string
+        fichier_audio:
+          type: string
+        fichier_pdf:
+          type: string
+        fichier_autre:
+          type: string
+      required:
+        - titre
+        - type
+    newsletters:
+      type: object
+      description: Schéma de la collection **newsletters**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        titre:
+          type: string
+        contenu:
+          type: string
+        envoyee:
+          type: boolean
+        slug:
+          type: string
+        auteur:
+          type: integer
+        statut:
+          type: string
+        date_envoi:
+          type: string
+          format: date-time
+        abonnes:
+          type: string
+      required:
+        - titre
+        - contenu
+        - statut
+    newsletters_abonnements:
+      type: object
+      description: Schéma de la collection **newsletters_abonnements**
+      properties:
+        id:
+          type: integer
+        newsletters_id:
+          type: integer
+        abonnements_id:
+          type: integer
+    pages:
+      type: object
+      description: Schéma de la collection **pages**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        titre:
+          type: string
+        slug:
+          type: string
+        contenu:
+          type: string
+        etat:
+          type: string
+        ordre:
+          type: integer
+        banniere:
+          type: integer
+      required:
+        - etat
+    segments:
+      type: object
+      description: Schéma de la collection **segments**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+    tags:
+      type: object
+      description: Schéma de la collection **tags**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        nom:
+          type: string
+        slug:
+          type: string
+        type_tag:
+          type: string
+        articles:
+          type: string
+        actualites:
+          type: string
+      required:
+        - nom
+    tags_actualites_1:
+      type: object
+      description: Schéma de la collection **tags_actualites_1**
+      properties:
+        id:
+          type: integer
+        tags_id:
+          type: integer
+        actualites_id:
+          type: integer
+    tags_articles_1:
+      type: object
+      description: Schéma de la collection **tags_articles_1**
+      properties:
+        id:
+          type: integer
+        tags_id:
+          type: integer
+        articles_id:
+          type: integer
+    utilisateurs:
+      type: object
+      description: Schéma de la collection **utilisateurs**
+      properties:
+        id:
+          type: integer
+        date_created:
+          type: string
+          format: date-time
+        date_updated:
+          type: string
+          format: date-time
+        prenom:
+          type: string
+        nom:
+          type: string
+        bio:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+        user_id:
+          type: string
+        photo:
+          type: integer
+        note_interne:
+          type: string
+        validation_admin:
+          type: boolean
+        statut_contribution:
+          type: string
+        niveau_confiance:
+          type: string
+        tags_expertise:
+          type: object
+        linkedin_url:
+          type: string
+        twitter_handle:
+          type: string
+      required:
+        - prenom
+        - nom
+        - email
+        - role
+        - photo
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: "⚠️ Ajoutez `Authorization: Bearer <token>` pour accéder aux
+        endpoints protégés."
+security:
+  - bearerAuth: []
